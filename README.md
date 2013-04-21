@@ -4,7 +4,7 @@ scripts.
 Installation
 ===
 
-Install this from [Marmalade](http://marmalade-repo.org/).
+Install this from [Marmalade](http://marmalade-repo.org/) or [MELPA](http://melpa.milkbox.net/).
 
 Then, in addition to the usual `company-mode` setup, add this to your init file:
 
