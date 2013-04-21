@@ -52,7 +52,7 @@
 They affect which types of symbols we get completion candidates for.")
 
 (defvar company-cmake--completion-pattern
-  "^\\(%s[a-zA-Z0-9_]*\\)$"
+  "^\\(%s[a-zA-Z0-9_]%s\\)$"
   "Regexp to match the candidates.")
 
 (defvar company-cmake-modes '(cmake-mode)
@@ -65,7 +65,8 @@ They affect which types of symbols we get completion candidates for.")
   "Analyze the temp buffer and collect lines."
   (goto-char (point-min))
   (let ((pattern (format company-cmake--completion-pattern
-                         (regexp-quote prefix)))
+                         (regexp-quote prefix)
+                         (if (zerop (length prefix)) "+" "*")))
         (case-fold-search nil)
         lines match)
     (while (re-search-forward pattern nil t)
