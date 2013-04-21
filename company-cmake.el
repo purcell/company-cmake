@@ -79,16 +79,14 @@ They affect which types of symbols we get completion candidates for.")
         results
         cmd)
     (setq company-cmake--meta-command-cache (make-hash-table :test 'equal))
-    (mapcar
-     (lambda (e)
-       (with-temp-buffer
-         (setq res (apply 'call-process company-cmake-executable
-                          nil t nil (list e)))
-         (unless (eq 0 res)
-           (message "cmake executable exited with error=%d" res))
-         (setq cmd (replace-regexp-in-string "-list$" "" e) )
-         (setq results (nconc results (company-cmake--parse-output prefix cmd)))))
-     company-cmake-executable-arguments)
+    (dolist (arg company-cmake-executable-arguments)
+      (with-temp-buffer
+        (setq res (apply 'call-process company-cmake-executable
+                         nil t nil (list arg)))
+        (unless (eq 0 res)
+          (message "cmake executable exited with error=%d" res))
+        (setq cmd (replace-regexp-in-string "-list$" "" arg) )
+        (setq results (nconc results (company-cmake--parse-output prefix cmd)))))
     results))
 
 (defun company-cmake--meta (prefix)
