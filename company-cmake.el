@@ -82,8 +82,7 @@ They affect which types of symbols we get completion candidates for.")
     (setq company-cmake--meta-command-cache (make-hash-table :test 'equal))
     (dolist (arg company-cmake-executable-arguments)
       (with-temp-buffer
-        (setq res (apply 'call-process company-cmake-executable
-                         nil t nil (list arg)))
+        (setq res (call-process company-cmake-executable nil t nil arg))
         (unless (eq 0 res)
           (message "cmake executable exited with error=%d" res))
         (setq cmd (replace-regexp-in-string "-list$" "" arg) )
@@ -94,7 +93,7 @@ They affect which types of symbols we get completion candidates for.")
   (let ((cmd-opts (gethash prefix company-cmake--meta-command-cache))
         result)
     (with-temp-buffer
-      (apply 'call-process company-cmake-executable nil t nil (list cmd-opts prefix))
+      (call-process company-cmake-executable nil t nil cmd-opts prefix)
       ;; Go to the third line, trim it and return the result.
       ;; Tested with cmake 2.8.9.
       (goto-char (point-min))
