@@ -44,6 +44,10 @@
   "Location of cmake executable."
   :type 'file)
 
+(defcustom company-cmake-ignore-case t
+  "Non-nil to ignore case when collecting completion candidates."
+  :type 'boolean)
+
 (defvar company-cmake-executable-arguments
   '("--help-command-list"
     "--help-module-list"
@@ -116,6 +120,7 @@ CMake is a cross-platform, open-source make system."
                  (not (company-in-string-or-comment))
                  (company-grab-symbol)))
     (candidates (company-cmake--candidates arg))
+    (ignore-case company-cmake-ignore-case)
     (meta (company-cmake--meta arg))))
 
 (provide 'company-cmake)
