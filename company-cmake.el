@@ -103,6 +103,7 @@ They affect which types of symbols we get completion candidates for.")
       (setq result (replace-regexp-in-string "^[ \t\n\r]+" "" result))
       result)))
 
+;;;###autoload
 (defun company-cmake (command &optional arg &rest ignored)
   "`company-mode' completion back-end for CMake.
 CMake is a cross-platform, open-source make system."
